@@ -419,7 +419,7 @@
         <span id="centerText">
            10/10/2026<br> <!-- Sửa lời nhắn hiển thị đầu ở đây-->
            Mong em pé của anh luôn tười cười và yêu đời và yêu luôn cả anh nữa 🩷 🩷 🩷!
-        
+        </span>
 			
 		
     </div>
@@ -550,18 +550,28 @@
             }
         }
 
-        document.body.addEventListener("click", function () {
-            const player = document.getElementById("player");
-			player.volume = 0.05; // chỉnh âm lượng ở đây
-            if (player.paused) {
-                player.play();
-            }
-        });
+document.body.addEventListener("click", function (e) {
+    // Bấm vào video hoặc nút mở video thì không bật nhạc
+    if (e.target.closest("#videoContainer") || e.target.closest("button")) return;
+
+    const player = document.getElementById("player");
+    player.volume = 0.3;
+    if (player.paused && document.getElementById("myVideo").paused) {
+        player.play();
+    }
+});
+
 
         overlay.addEventListener("click", closePopup);
         setInterval(() => {
             createFallingLetter();
         }, 1000);
+		const bgMusic = document.getElementById("player");
+const vid = document.getElementById("myVideo");
+
+vid.addEventListener("play", () => bgMusic.pause());
+
+vid.addEventListener("ended", () => bgMusic.play());
     </script>
 
 </body>
